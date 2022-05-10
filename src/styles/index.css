@@ -1,0 +1,127 @@
+/* Fonts: Baloo 2 (Headings) and Inter */
+@import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600&family=Inter:wght@300;400;500&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    --background: theme(colors.stone.50);
+    --background2: theme(colors.white);
+    --accent: theme(colors.lime.400);
+    --accent2: theme(colors.lime.500);
+    --error: theme(colors.red.600);
+    --text: theme(colors.lime.900);
+    --text2: theme(colors.lime.800);
+    --info: theme(colors.sky.600);
+    --warning: theme(colors.yellow.600);
+    --success: theme(colors.lime.600);
+    --scrollbar-thumb: inset 99px 0px 99px rgba(0, 0, 0, 0.12);
+    --scrollbar-thumb-hover: inset 99px 0px 99px rgba(0, 0, 0, 0.18);
+    --m-scrollbar-thumb: rgba(0, 0, 0, 0.16);
+    --selection: theme(colors.lime.100);
+    --selection-text: theme(colors.lime.900);
+  }
+
+  html.dark {
+    --background: theme(colors.black);
+    --accent: theme(colors.lime.600);
+    --accent-2: theme(colors.lime.700);
+    --error: theme(colors.red.400);
+    --scrollbar-thumb: inset 99px 0px 99px rgba(255, 255, 255, 0.2);
+    --scrollbar-thumb-hover: inset 99px 0px 99px rgba(255, 255, 255, 0.3);
+    --m-scrollbar-thumb: rgba(255, 255, 255, 0.25);
+    --selection: theme(colors.lime.300);
+    --selection-text: theme(colors.black);
+  }
+
+  * {
+    /* Disable font flashing */
+    font-display: optional;
+    /* Enable font-smoothing */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Disable webkit mobile tap highlight */
+    -webkit-tap-highlight-color: transparent;
+    /* Enable discretionary ligatures, enable ligatures, and common alternatives */
+    font-feature-settings: "dlig", "liga", "calt";
+    -webkit-font-feature-settings: "dlig", "liga", "calt";
+    /* Set scrollbar width to thin on non-webkit browsers */
+    scrollbar-width: thin !important;
+    scrollbar-color: var(--m-scrollbar-thumb) rgba(0, 0, 0, 0) !important;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+      "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+      "Helvetica Neue", sans-serif;
+    @apply box-border !scroll-smooth;
+
+    &::selection {
+      color: var(--selection-text);
+      background-color: var(--selection);
+    }
+
+    &:focus {
+      outline: none;
+  
+      &:not(:focus-visible) {
+        outline: none;
+      }
+    }
+  }
+
+  #root {
+    @apply min-h-screen flex-col flex items-stretch;
+  }
+
+  @media (pointer: fine) {
+    *::-webkit-scrollbar {
+      width: 10px;
+      height: 10px;
+      @apply bg-bgcolor;
+    }
+
+    *::-webkit-scrollbar-thumb {
+      box-sizing: content-box;
+      background-color: none;
+      border: 2px solid transparent;
+      border-radius: 24px;
+      box-shadow: var(--scrollbar-thumb);
+    }
+
+    *::-webkit-scrollbar-thumb:hover {
+      box-shadow: var(--scrollbar-thumb-hover);
+    }
+  }
+
+  body {
+    @apply bg-bgcolor text-txtcolor;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Baloo 2", -apple-system, BlinkMacSystemFont, "Segoe UI",
+      "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+      "Helvetica Neue", sans-serif;
+    @apply text-txtcolor font-medium;
+  }
+
+  a {
+    text-decoration: none;
+    @apply cursor-pointer text-inherit;
+  }
+
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+      monospace;
+  }
+}
+
+@layer utilities {
+  .text-shadow {
+    text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15);
+  }
+}
