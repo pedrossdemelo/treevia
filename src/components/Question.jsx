@@ -1,6 +1,8 @@
 import { ArrowRight } from "phosphor-react";
 import PropTypes from "prop-types";
 import React, { useEffect, useMemo, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setAnswers } from "../store/actions";
 import { shuffle } from "../utils";
 import AnswerButton from "./AnswerButton";
 import Timer from "./Timer";
@@ -29,6 +31,8 @@ export function Question(props) {
 
   const [answered, setAnswered] = useState();
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
     const timeout = setTimeout(() => {
       if (!answered) {
@@ -43,9 +47,16 @@ export function Question(props) {
     new DOMParser().parseFromString(string, "text/html").body.textContent;
   const parsedQuestion = useMemo(() => parse(question), [question]);
 
+  const allAnswers = useSelector(state => state.player.answers);
+
+  const parsedCorrectAnswer = useMemo(
+    () => parse(correctAnswer),
+    [correctAnswer]
+  );
+
   const answers = useMemo(
     () => shuffle([...incorrectAnswers, correctAnswer].map(parse)),
-    [incorrectAnswers, correctAnswer, shuffle]
+    [incorrectAnswers, parsedCorrectAnswer, shuffle]
   );
 
   const difficultyColor = DIFFICULTY_PALETTE[difficulty];
@@ -54,15 +65,16 @@ export function Question(props) {
     if (!answered) return "";
     if (index === FINAL_INDEX) return "Results";
     if (answered === "Timed out!") return "Timed out, hurry up!";
-    if (answered === correctAnswer) return "You got it, keep it up!";
+    if (answered.split(" | ")[0] === parsedCorrectAnswer) return "You got it, keep it up!";
     return "You got it wrong, try again!";
   }, [answered]);
 
   const buttonStyle = useMemo(() => {
     if (!answered) return "";
-    if (index === FINAL_INDEX) return "bg-gradient-to-r text-white overflow-hidden from-lime-500 to-green-500";
+    if (index === FINAL_INDEX)
+      return "bg-gradient-to-r text-white overflow-hidden from-lime-500 to-green-500";
     if (answered === "Timed out!") return "bg-purple-500 text-white";
-    if (answered === correctAnswer) return "bg-green-500 text-white";
+    if (answered.split(" | ")[0] === parsedCorrectAnswer) return "bg-green-500 text-white";
     return "bg-red-500 text-white";
   }, [answered]);
 
@@ -85,7 +97,7 @@ export function Question(props) {
             key={answer}
             body={answer}
             setAnswered={setAnswered}
-            isCorrect={answer === parse(correctAnswer)}
+            isCorrect={answer ===parsedCorrectAnswer}
             difficulty={difficulty}
           />
         ))}
@@ -99,6 +111,7 @@ export function Question(props) {
             type="button"
             className={`${buttonStyle} h-20 rounded-lg flex justify-between gap-2 items-center px-5 font-bold text-lg tracking-wide`}
             onClick={() => {
+              dispatch(setAnswers([...allAnswers, answered]));
               if (index === FINAL_INDEX) return goToFeedback();
               nextQuestion();
             }}
