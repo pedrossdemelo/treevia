@@ -1,12 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
-import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
-import { updateScore } from '../store/actions';
+import React, { useEffect, useRef, useState } from "react";
+import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
+import { updateScore } from "../store/actions";
 
 function AnswerButton({
   body,
   isCorrect = false,
-  index,
   clicked,
   setAnswered,
   disabled,
@@ -25,7 +24,7 @@ function AnswerButton({
 
   useEffect(() => {
     id.current = window.setInterval(() => {
-      setTimer((time) => time - 1);
+      setTimer(time => time - 1);
     }, tick);
     return () => clear();
   }, []);
@@ -46,29 +45,30 @@ function AnswerButton({
 
   const basePontuation = 10;
 
-  const score = useSelector((state) => state.player.score);
+  const score = useSelector(state => state.player.score);
 
-  const border = clicked
-    ? `3px solid 
-  ${isCorrect ? 'rgb(6, 240, 15)' : 'rgb(255, 0, 0)'}`
-    : undefined;
+  const borderColor = clicked
+    ? isCorrect
+      ? "border-success"
+      : "border-error"
+    : "border-neutral-400";
 
   return (
     <button
-      disabled={ disabled }
-      style={ { border } }
-      onClick={ () => {
+      disabled={disabled}
+      className={`rounded-lg m-2 border-b-4 border-x-[1.5px] border-t-[0.5px] ${borderColor} p-2`}
+      onClick={() => {
         setAnswered(true);
         if (isCorrect) {
           console.log(timer);
           dispatch(
             updateScore(
-              score + (basePontuation + pontuation[difficulty] * timer),
-            ),
+              score + (basePontuation + pontuation[difficulty] * timer)
+            )
           );
         }
-      } }
-      key={ body }
+      }}
+      key={body}
       type="button"
     >
       {body}
