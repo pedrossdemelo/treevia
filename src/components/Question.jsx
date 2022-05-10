@@ -1,8 +1,10 @@
-import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
-import { shuffle } from '../utils';
-import AnswerButton from './AnswerButton';
-import Timer from './Timer';
+import PropTypes from "prop-types";
+import React, { useEffect, useMemo, useState } from "react";
+import { shuffle } from "../utils";
+import AnswerButton from "./AnswerButton";
+import Timer from "./Timer";
+
+const ANSWER_TIMEOUT = 30000;
 
 export function Question(props) {
   const {
@@ -18,60 +20,64 @@ export function Question(props) {
 
   const [answered, setAnswered] = useState(false);
 
-  const AnswerTimeout = 30000;
   useEffect(() => {
     const timeout = setTimeout(() => {
       if (!answered) {
         setAnswered(true);
       }
-    }, AnswerTimeout);
+    }, ANSWER_TIMEOUT);
     if (answered) clearTimeout(timeout);
     return () => clearTimeout(timeout);
   }, [answered]);
 
-  // const parser = new DOMParser();
-  // const parsedQuestion = parser.parseFromString(question, 'text/html').body //   .textContent;
+  const parser = new DOMParser();
+  const parsedQuestion = parser.parseFromString(question, "text/html").body
+    .textContent;
+
+  const answers = useMemo(
+    () => shuffle([...incorrectAnswers, correctAnswer]),
+    [incorrectAnswers, correctAnswer, shuffle]
+  );
 
   return (
     <div>
-      <h5>{category}</h5>
-      <h3>{question}</h3>
-      <Timer answered={ answered } />
-      <div>
-        {shuffle([
-          ...incorrectAnswers.map((a, i) => (
-            <AnswerButton
-              clicked={ answered }
-              disabled={ answered }
-              key={ a }
-              body={ a }
-              index={ i }
-              setAnswered={ setAnswered }
-            />
-          )),
-          <AnswerButton
-            clicked={ answered }
-            disabled={ answered }
-            key={ correctAnswer }
-            body={ correctAnswer }
-            setAnswered={ setAnswered }
-            isCorrect
-            difficulty={ difficulty }
-          />,
-        ])}
+      <h1 className="text-2xl">{parsedQuestion}</h1>
+      <div className="flex gap-2">
+        <p className="bg-white rounded-full py-1 px-3">{category}</p>
+        <p className="bg-white rounded-full py-1 px-3">
+          {difficulty[0].toUpperCase() + difficulty.slice(1)}
+        </p>
       </div>
-      {answered && (
-        <button
-          type="button"
-          onClick={ () => {
-            const FINAL_INDEX = 4;
-            if (index === FINAL_INDEX) return goToFeedback();
-            nextQuestion();
-          } }
-        >
-          Next
-        </button>
-      )}
+      <div>
+        {answers.map(answer => (
+          <AnswerButton
+            clicked={answered}
+            disabled={answered}
+            key={answer}
+            body={answer}
+            setAnswered={setAnswered}
+            isCorrect={answer === correctAnswer}
+            difficulty={difficulty}
+          />
+        ))}
+      </div>
+
+      <div className="flex justify-center items-center">
+        {!answered && <Timer answered={answered} />}
+
+        {answered && (
+          <button
+            type="button"
+            onClick={() => {
+              const FINAL_INDEX = 4;
+              if (index === FINAL_INDEX) return goToFeedback();
+              nextQuestion();
+            }}
+          >
+            Next
+          </button>
+        )}
+      </div>
     </div>
   );
 }
