@@ -60,7 +60,6 @@ function Timer({ start = defaultTimer, answered }) {
 
 Timer.propTypes = {
   start: PropTypes.number,
-  answered: PropTypes.bool.isRequired,
 };
 
 Timer.defaultProps = {
