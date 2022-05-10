@@ -12,7 +12,7 @@ export default function App() {
     <>
       {renderWithHeader(pathname) && <Header />}
 
-      <main className="max-w-xl mx-auto grow">
+      <main className="max-w-2xl mb-4 mx-auto grow">
         <Switch>
           <Route exact path="/">
             <Login />
