@@ -1,23 +1,23 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import { setToken } from '../store/actions';
-import { getToken } from '../utils';
-import { Question } from '../components';
+import React, { useCallback, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { setToken } from "../store/actions";
+import { getToken } from "../utils";
+import { Question } from "../components";
 
 function Game() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const token = useSelector((state) => state.token);
+  const token = useSelector(state => state.token);
   const [currResults, setResults] = useState([]);
   const [currQuestion, setCurrQuestion] = useState(0);
   const nextQuestion = () => setCurrQuestion(currQuestion + 1);
-  const goToFeedback = () => history.push('/feedback');
+  const goToFeedback = () => history.push("/feedback");
 
   const getAnswers = useCallback(
-    async (t) => {
-      const URL = 'https://opentdb.com/api.php?amount=5&token=';
-      const res = await fetch(URL + t);
+    async token => {
+      const URL = "https://opentdb.com/api.php?amount=10&token=";
+      const res = await fetch(URL + token);
       const data = await res.json();
       const { response_code: responseCode, results } = data;
       if (responseCode !== 0) {
@@ -26,24 +26,40 @@ function Game() {
       }
       return setResults(results);
     },
-    [dispatch],
+    [dispatch]
   );
 
   useEffect(() => {
     getAnswers(token);
   }, [token, getAnswers]);
 
+  const DIFFICULTY_PALETTE = {
+    easy: "bg-lime-500",
+    medium: "bg-yellow-500",
+    hard: "bg-red-500",
+  };
+
   return (
-    <div>
+    <div className="mx-4">
+      <div className="flex gap-4 items-center justify-center mt-4 mb-6">
+        {currResults.map((q, i) => (
+          <div
+            className={`h-4 aspect-square rounded-full transition-all duration-500 ${
+              DIFFICULTY_PALETTE[q.difficulty]
+            } ${i === currQuestion ? "h-6 -m-1" : ""}`}
+            key={q.question}
+          />
+        ))}
+      </div>
       {currResults.map((q, i) => {
         if (i === currQuestion) {
           return (
             <Question
-              key={ q.question }
-              nextQuestion={ nextQuestion }
-              goToFeedback={ goToFeedback }
-              index={ currQuestion }
-              { ...q }
+              key={q.question}
+              nextQuestion={nextQuestion}
+              goToFeedback={goToFeedback}
+              index={currQuestion}
+              {...q}
             />
           );
         }
