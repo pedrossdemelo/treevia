@@ -41,7 +41,7 @@ function Login() {
         </h1>
       </div>
 
-      <p className="text-lg text-center leading-tight font-medium opacity-70">
+      <p className="text-lg text-center leading-tight font-medium opacity-70 mb-4">
         The trivia game with more than{" "}
         <span className="bg-clip-text bg-gradient-to-r text-transparent font-title from-lime-500 to-green-500 font-bold text-xl">
           tree thousand
