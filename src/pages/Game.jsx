@@ -40,10 +40,10 @@ function Game() {
           return (
             <Question
               key={ q.question }
-              { ...q }
               nextQuestion={ nextQuestion }
               goToFeedback={ goToFeedback }
               index={ currQuestion }
+              { ...q }
             />
           );
         }
