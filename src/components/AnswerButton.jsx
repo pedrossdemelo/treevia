@@ -39,11 +39,11 @@ function AnswerButton({
 
   const pontuation = {
     easy: 1,
-    medium: 2,
-    hard: 3,
+    medium: 1.5,
+    hard: 2,
   };
 
-  const basePontuation = 10;
+  const basePontuation = 30;
 
   const score = useSelector(state => state.player.score);
 
@@ -60,7 +60,7 @@ function AnswerButton({
       border-x-[1.5px] transition-all duration-300 font-medium bg-bgcolor2
       min-w-[100px] border-t-[0.5px] text-lg ${buttonColor} px-5`}
       onClick={() => {
-        setAnswered(body);
+        setAnswered(body + (isCorrect ? ` | ${difficulty} | ${timer}` : ""));
         if (isCorrect) {
           console.log(timer);
           dispatch(
