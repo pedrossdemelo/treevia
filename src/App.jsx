@@ -4,9 +4,13 @@ import { Login, Game, Settings, Feedback } from "./pages";
 import { Header } from "./components";
 import renderWithHeader from "./utils/renderWithHeader";
 import { useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Redirect } from "react-router-dom";
 
 export default function App() {
   const { pathname } = useLocation();
+  const { name, gravatarEmail } = useSelector(state => state.player);
+  const loggedIn = Boolean(name && gravatarEmail);
 
   return (
     <>
@@ -15,16 +19,16 @@ export default function App() {
       <main className="max-w-2xl mb-4 mx-auto grow">
         <Switch>
           <Route exact path="/">
-            <Login />
+            {loggedIn ? <Redirect to="/game" /> : <Login />}
           </Route>
           <Route path="/game">
-            <Game />
+            {loggedIn ? <Game /> : <Redirect to="/" />}
           </Route>
           <Route path="/settings">
-            <Settings />
+            {loggedIn ? <Settings /> : <Redirect to="/" />}
           </Route>
           <Route path="/feedback">
-            <Feedback />
+            {loggedIn ? <Feedback /> : <Redirect to="/" />}
           </Route>
         </Switch>
       </main>
