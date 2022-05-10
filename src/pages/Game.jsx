@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { setToken } from "../store/actions";
+import { setQuestions, setToken } from "../store/actions";
 import { getToken } from "../utils";
 import { Question } from "../components";
 
@@ -9,7 +9,8 @@ function Game() {
   const dispatch = useDispatch();
   const history = useHistory();
   const token = useSelector(state => state.token);
-  const [currResults, setResults] = useState([]);
+  const questions = useSelector(state => state.player.questions);
+  const answers = useSelector(state => state.player.answers);
   const [currQuestion, setCurrQuestion] = useState(0);
   const nextQuestion = () => setCurrQuestion(currQuestion + 1);
   const goToFeedback = () => history.push("/feedback");
@@ -24,7 +25,7 @@ function Game() {
         const newToken = await getToken();
         return dispatch(setToken(newToken));
       }
-      return setResults(results);
+      return dispatch(setQuestions(results));
     },
     [dispatch]
   );
@@ -42,16 +43,16 @@ function Game() {
   return (
     <div className="mx-4">
       <div className="flex gap-4 items-center justify-center mt-4 mb-6">
-        {currResults.map((q, i) => (
+        {questions.map((q, i) => (
           <div
             className={`h-4 aspect-square rounded-full transition-all duration-500 ${
               DIFFICULTY_PALETTE[q.difficulty]
-            } ${i === currQuestion ? "h-6 -m-1" : ""}`}
+            } ${i < answers.length ? "opacity-40" : ""} ${i === currQuestion ? "h-6 -m-1" : ""}`}
             key={q.question}
           />
         ))}
       </div>
-      {currResults.map((q, i) => {
+      {questions.map((q, i) => {
         if (i === currQuestion) {
           return (
             <Question
