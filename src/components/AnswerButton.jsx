@@ -47,18 +47,20 @@ function AnswerButton({
 
   const score = useSelector(state => state.player.score);
 
-  const borderColor = clicked
+  const buttonColor = clicked
     ? isCorrect
-      ? "border-success"
-      : "border-error"
-    : "border-neutral-400";
+      ? "border-success text-success"
+      : "border-error text-error"
+    : "border-neutral-400 text-txtcolor";
 
   return (
     <button
       disabled={disabled}
-      className={`rounded-lg m-2 border-b-4 border-x-[1.5px] border-t-[0.5px] ${borderColor} p-2`}
+      className={`rounded-lg my-2 text-left min-h-[64px] grow border-b-4
+      border-x-[1.5px] transition-all duration-300 font-medium bg-bgcolor2
+      min-w-[100px] border-t-[0.5px] text-lg ${buttonColor} px-5`}
       onClick={() => {
-        setAnswered(true);
+        setAnswered(body);
         if (isCorrect) {
           console.log(timer);
           dispatch(
