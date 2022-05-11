@@ -29,9 +29,9 @@ function Game() {
   }, [category]);
 
   const DIFFICULTY_PALETTE = {
-    easy: "bg-lime-500",
-    medium: "bg-yellow-500",
-    hard: "bg-red-500",
+    easy: "bg-success",
+    medium: "bg-warning",
+    hard: "bg-error",
   };
 
   return (
