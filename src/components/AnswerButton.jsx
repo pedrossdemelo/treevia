@@ -49,15 +49,15 @@ function AnswerButton({
 
   const buttonColor = clicked
     ? isCorrect
-      ? "border-success text-success"
-      : "border-error text-error"
-    : "border-neutral-400 text-txtcolor";
+      ? "border-success text-success bg-green-500/5 "
+      : "border-error text-error bg-red-500/5"
+    : "border-gray-300 dark:border-neutral-700 text-txtcolor bg-bgcolor2";
 
   return (
     <button
       disabled={disabled}
       className={`rounded-lg my-2 text-left min-h-[64px] grow border-b-4
-      border-x-[1.5px] transition-all duration-300 font-medium bg-bgcolor2
+      border-x-[1.5px] transition-all duration-300 font-medium
       min-w-[100px] border-t-[0.5px] text-lg ${buttonColor} px-5`}
       onClick={() => {
         setAnswered(body + (isCorrect ? ` | ${timer}` : ""));
