@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { restartGame } from "../store/actions";
 import { ArrowRight } from "phosphor-react";
+import { parseHTML } from "../utils";
 
 const difficultyMap = {
   easy: 1,
@@ -29,10 +30,15 @@ export default function Feedback() {
 
     const category = q.category;
     const difficulty = q.difficulty;
+    const question = parseHTML(q.question);
+    const correctAnswer = parseHTML(q.correct_answer);
 
     return {
       category,
       difficulty,
+      answer,
+      question,
+      correctAnswer,
       isCorrect,
       isTimedOut,
       isWrong,
@@ -90,9 +96,10 @@ export default function Feedback() {
           </div>
         </>
       )}
-      <details className="text-xs text-center mb-4">
-        Scores are calculated as follows: <br /> 30 points base + (seconds left
-        * difficulty) <br /> Easy: 1 | Medium: 1.5 | Hard: 2
+      <details className="text-xs text-center mb-4 cursor-pointer">
+        <summary>How scores are calculated</summary>
+        30 points base + (seconds left * difficulty) <br /> Easy: 1 | Medium:
+        1.5 | Hard: 2
       </details>
       <button
         className="h-20 w-full px-5 font-xl font-bold text-white rounded-lg
@@ -114,6 +121,9 @@ function AnswerDetails({
   isWrong,
   timeLeft,
   category,
+  answer,
+  correctAnswer,
+  question,
   difficulty,
 }) {
   const difficultyColor = useMemo(() => {
@@ -138,17 +148,20 @@ function AnswerDetails({
 
   return (
     <div
-      className={`flex flex-col items-stretch rounded-lg justify-between h-20
-      px-5 py-3 font-medium ${tintBg} min-w-[min(340px,90vw)] text-sm`}
+      className={`flex flex-col items-stretch rounded-lg justify-between min-h-[80px]
+      px-5 py-3 font-medium ${tintBg} min-w-[min(340px,90vw)] text-sm gap-4`}
     >
-      <div className="flex justify-between uppercase gap-4 items-center">
+      <div className="flex align-text-top justify-between uppercase gap-4 items-center">
         <span>{category.split(":")[1] ?? category}</span>
         <span className={`${difficultyColor}`}>{difficulty}</span>
       </div>
-      <div className={`${statusColor} flex justify-between gap-4 items-center`}>
+      <span>{question}</span>
+      <span>Answer: {correctAnswer}</span>
+      <div className={`${statusColor} flex align-text-bottom justify-between gap-4 items-center`}>
         <span>
-          {result}
-          {isCorrect && <span>{` @ ${timeLeft}s left`}</span>}
+          {!isWrong && result}
+          {isCorrect && <span>{` w/ ${timeLeft}s left`}</span>}
+          {isWrong && <span>{`You answered: ${answer}`}</span>}
         </span>
 
         {isCorrect && (
