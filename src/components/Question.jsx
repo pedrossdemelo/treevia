@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setAnswers } from "../store/actions";
-import { shuffle } from "../utils";
+import { parseHTML, shuffle } from "../utils";
 import AnswerButton from "./AnswerButton";
 import Timer from "./Timer";
 
@@ -43,19 +43,17 @@ export function Question(props) {
     return () => clearTimeout(timeout);
   }, [answered]);
 
-  const parse = string =>
-    new DOMParser().parseFromString(string, "text/html").body.textContent;
-  const parsedQuestion = useMemo(() => parse(question), [question]);
+  const parsedQuestion = useMemo(() => parseHTML(question), [question]);
 
   const allAnswers = useSelector(state => state.player.answers);
 
   const parsedCorrectAnswer = useMemo(
-    () => parse(correctAnswer),
+    () => parseHTML(correctAnswer),
     [correctAnswer]
   );
 
   const answers = useMemo(
-    () => shuffle([...incorrectAnswers, correctAnswer].map(parse)),
+    () => shuffle([...incorrectAnswers, correctAnswer].map(parseHTML)),
     [incorrectAnswers, parsedCorrectAnswer, shuffle]
   );
 
@@ -81,12 +79,12 @@ export function Question(props) {
   return (
     <div>
       <h1 className="text-2xl mt-4 leading-tight mb-2">{parsedQuestion}</h1>
-      <div className="flex gap-4 mb-2 justify-between">
+      <div className="flex gap-4 mb-2 uppercase justify-between">
         <p className="font-medium">
           Question {index + 1}/{FINAL_INDEX + 1} · {category}
         </p>
         <p className={difficultyColor + " font-medium"}>
-          {difficulty[0].toUpperCase() + difficulty.slice(1)}
+          {difficulty}
         </p>
       </div>
       <div className="flex flex-col items-stretch justify-around h-96">
