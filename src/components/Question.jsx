@@ -80,7 +80,7 @@ export function Question(props) {
     <div>
       <h1 className="text-2xl mt-4 leading-tight mb-2">{parsedQuestion}</h1>
       <div className="flex gap-4 mb-2 uppercase justify-between">
-        <p className="font-medium">
+        <p className="font-medium opacity-75">
           Question {index + 1}/{FINAL_INDEX + 1} · {category}
         </p>
         <p className={difficultyColor + " font-medium"}>
