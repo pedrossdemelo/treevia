@@ -60,7 +60,7 @@ function AnswerButton({
       border-x-[1.5px] transition-all duration-300 font-medium bg-bgcolor2
       min-w-[100px] border-t-[0.5px] text-lg ${buttonColor} px-5`}
       onClick={() => {
-        setAnswered(body + (isCorrect ? ` | ${difficulty} | ${timer}` : ""));
+        setAnswered(body + (isCorrect ? ` | ${timer}` : ""));
         if (isCorrect) {
           console.log(timer);
           dispatch(
