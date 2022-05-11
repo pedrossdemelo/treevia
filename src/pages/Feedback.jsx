@@ -2,6 +2,7 @@ import React, { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { restartGame } from "../store/actions";
+import { ArrowRight } from "phosphor-react";
 
 const difficultyMap = {
   easy: 1,
@@ -85,12 +86,18 @@ export default function Feedback() {
           return <AnswerDetails {...q} key={i} />;
         })}
       </div>
+
+      <details className="text-xs text-center mb-4">Scores are calculated as follows: <br /> 30 points base + (seconds left * difficulty) <br /> Easy: 1 | Medium: 1.5 | Hard: 2</details>
+
       <button
-        className="h-20 w-full px-5 font-xl font-bold text-white rounded-lg uppercase bg-gradient-to-r from-lime-500 to-green-500"
+        className="h-20 w-full px-5 font-xl font-bold text-white rounded-lg
+        bg-gradient-to-r from-lime-500 to-green-500 flex justify-between items-center"
         type="button"
         onClick={() => history.push("/game") || dispatch(restartGame())}
       >
-        Play again
+        <span>Play again</span>
+
+        <ArrowRight weight="bold" size="24px" />
       </button>
     </div>
   );
