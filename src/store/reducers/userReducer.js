@@ -41,6 +41,8 @@ export default function userReducer(state = initialState, action) {
         score: 0,
         highScore: 0,
         gravatarEmail: "",
+        questions: [],
+        answers: [],
       };
     case "user/setQuestions":
       return {
