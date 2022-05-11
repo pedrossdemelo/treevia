@@ -51,30 +51,30 @@ export default function Feedback() {
   const percentStyles = useMemo(() => {
     if (percentScore < 20) {
       return {
-        txtColor: "text-red-700",
+        txtColor: "text-red-700 dark:text-red-500",
         emoji: "😭",
       };
     }
     if (percentScore < 40) {
       return {
-        txtColor: "text-orange-700",
+        txtColor: "text-orange-700 dark:text-orange-500",
         emoji: "😔",
       };
     }
     if (percentScore < 60) {
       return {
-        txtColor: "text-yellow-700",
+        txtColor: "text-yellow-700 dark:text-yellow-500",
         emoji: "😕",
       };
     }
     if (percentScore < 80) {
       return {
-        txtColor: "text-green-700",
+        txtColor: "text-green-700 dark:text-green-500",
         emoji: "😊",
       };
     }
     return {
-      txtColor: "text-cyan-700",
+      txtColor: "text-cyan-700 dark:text-cyan-500",
       emoji: "🤩",
     };
   }, [percentScore]);
@@ -84,7 +84,7 @@ export default function Feedback() {
       <h1 className="text-[clamp(30px,6vw,60px)] text-center">Overview</h1>{" "}
       {answeredQuestions.length > 0 && (
         <>
-          <p className="font-medium text-center">
+          <p className="font-medium text-center opacity-80">
             You scored <span className={percentStyles.txtColor}>{score}</span> /{" "}
             {maxScore} {percentStyles.emoji}{" "}
             <span className={percentStyles.txtColor}>({percentScore}%)</span>
@@ -133,8 +133,8 @@ function AnswerDetails({
   }, [difficulty]);
 
   const statusColor = useMemo(() => {
-    if (isCorrect) return "text-green-700";
-    if (isTimedOut) return "text-purple-700";
+    if (isCorrect) return "text-success";
+    if (isTimedOut) return "text-purple-700 text-purple-400";
     if (isWrong) return "text-error";
   }, [isCorrect, isTimedOut, isWrong]);
 
@@ -155,8 +155,8 @@ function AnswerDetails({
         <span>{category.split(":")[1] ?? category}</span>
         <span className={`${difficultyColor}`}>{difficulty}</span>
       </div>
-      <span>{question}</span>
-      <span>Answer: {correctAnswer}</span>
+      <span className="opacity-80">{question}</span>
+      <span className="opacity-80">Answer: {correctAnswer}</span>
       <div className={`${statusColor} flex align-text-bottom justify-between gap-4 items-center`}>
         <span>
           {!isWrong && result}
