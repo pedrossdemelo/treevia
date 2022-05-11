@@ -76,19 +76,24 @@ export default function Feedback() {
   return (
     <div className="w-[clamp(320px,90vw,600px)] mx-4">
       <h1 className="text-[clamp(30px,6vw,60px)] text-center">Overview</h1>{" "}
-      <p className="font-medium text-center">
-        You scored <span className={percentStyles.txtColor}>{score}</span> /{" "}
-        {maxScore} {percentStyles.emoji}{" "}
-        <span className={percentStyles.txtColor}>({percentScore}%)</span>
-      </p>
-      <div className="flex flex-col gap-4 items-stretch w-full my-4">
-        {answeredQuestions.map((q, i) => {
-          return <AnswerDetails {...q} key={i} />;
-        })}
-      </div>
-
-      <details className="text-xs text-center mb-4">Scores are calculated as follows: <br /> 30 points base + (seconds left * difficulty) <br /> Easy: 1 | Medium: 1.5 | Hard: 2</details>
-
+      {answeredQuestions.length > 0 && (
+        <>
+          <p className="font-medium text-center">
+            You scored <span className={percentStyles.txtColor}>{score}</span> /{" "}
+            {maxScore} {percentStyles.emoji}{" "}
+            <span className={percentStyles.txtColor}>({percentScore}%)</span>
+          </p>
+          <div className="flex flex-col gap-4 items-stretch w-full my-4">
+            {answeredQuestions.map((q, i) => {
+              return <AnswerDetails {...q} key={i} />;
+            })}
+          </div>
+        </>
+      )}
+      <details className="text-xs text-center mb-4">
+        Scores are calculated as follows: <br /> 30 points base + (seconds left
+        * difficulty) <br /> Easy: 1 | Medium: 1.5 | Hard: 2
+      </details>
       <button
         className="h-20 w-full px-5 font-xl font-bold text-white rounded-lg
         bg-gradient-to-r from-lime-500 to-green-500 flex justify-between items-center"
@@ -146,7 +151,9 @@ function AnswerDetails({
           {isCorrect && <span>{` @ ${timeLeft}s left`}</span>}
         </span>
 
-        {isCorrect && <span>+ {30 + difficultyMap[difficulty] * timeLeft}</span>}
+        {isCorrect && (
+          <span>+ {30 + difficultyMap[difficulty] * timeLeft}</span>
+        )}
         {!isCorrect && <span>+ 0</span>}
       </div>
     </div>
