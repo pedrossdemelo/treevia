@@ -16,7 +16,7 @@ function Login() {
   const { name, email } = state;
 
   async function handleStart() {
-    history.push("/game");
+    history.push("/settings");
     dispatch(setName(name));
     dispatch(setEmail(email));
   }
