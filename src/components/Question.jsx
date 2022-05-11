@@ -90,8 +90,8 @@ export function Question(props) {
       <div className="flex flex-col items-stretch justify-around h-96">
         {answers.map(answer => (
           <AnswerButton
-            clicked={answered}
-            disabled={answered}
+            clicked={Boolean(answered)}
+            disabled={Boolean(answered)}
             key={answer}
             body={answer}
             setAnswered={setAnswered}
