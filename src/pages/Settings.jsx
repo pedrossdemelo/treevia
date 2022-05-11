@@ -14,7 +14,7 @@ function Settings() {
       <h1 className="text-[clamp(30px,6vw,60px)] text-center">Settings</h1>
       <label
         htmlFor="trivia_category"
-        className="text-lg block mb-2 font-medium text-center"
+        className="text-lg block mb-2 font-medium text-center opacity-75"
       >
         Trivia category:{" "}
       </label>
@@ -23,7 +23,7 @@ function Settings() {
           onChange={e => dispatch(setCategory(e.target.value))}
           value={category}
           name="trivia_category"
-          className="h-20 bg-bgcolor2 px-5 appearance-none rounded-lg w-full cursor-pointer font-medium"
+          className="h-20 bg-bgcolor2 text-lg px-5 appearance-none rounded-lg w-full cursor-pointer font-medium"
         >
           <option value="any">Any Category</option>
           <option value="9">General Knowledge</option>
@@ -59,7 +59,7 @@ function Settings() {
       </div>
 
       <button
-        className="h-20 w-full px-5 font-xl font-bold text-white rounded-lg
+        className="h-20 w-full px-5 text-lg tracking-wide font-bold text-white rounded-lg
         bg-gradient-to-r from-lime-500 to-green-500 flex justify-between items-center"
         type="button"
         onClick={() => history.push("/game") || dispatch(restartGame())}
@@ -69,11 +69,11 @@ function Settings() {
         <ArrowRight weight="bold" size="24px" />
       </button>
 
-      <div className="h-[2px] rounded w-full bg-stone-200 my-4" />
+      <div className="h-[2px] rounded w-full dark:bg-neutral-800 bg-stone-200 my-4" />
 
       <button
         className="h-20 flex items-center justify-between w-full px-5 font-xl
-        font-bold text-white rounded-lg bg-red-600"
+        font-bold text-white text-lg tracking-wide rounded-lg bg-red-600"
         type="button"
         onClick={() => dispatch(logout()) || history.push("/")}
       >
