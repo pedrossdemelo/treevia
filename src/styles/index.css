@@ -7,28 +7,32 @@
 
 @layer base {
   html {
-    --background: theme(colors.stone.50);
+    --background: theme(colors.stone.100);
     --background2: theme(colors.white);
     --accent: theme(colors.lime.400);
     --accent2: theme(colors.lime.500);
     --error: theme(colors.red.600);
-    --text: theme(colors.lime.900);
-    --text2: theme(colors.lime.800);
+    --text: theme(colors.stone.900);
     --info: theme(colors.sky.600);
     --warning: theme(colors.yellow.600);
-    --success: theme(colors.lime.600);
+    --success: theme(colors.green.600);
     --scrollbar-thumb: inset 99px 0px 99px rgba(0, 0, 0, 0.12);
     --scrollbar-thumb-hover: inset 99px 0px 99px rgba(0, 0, 0, 0.18);
     --m-scrollbar-thumb: rgba(0, 0, 0, 0.16);
     --selection: theme(colors.lime.100);
-    --selection-text: theme(colors.lime.900);
+    --selection-text: theme(colors.stone.900);
   }
 
   html.dark {
-    --background: theme(colors.black);
+    --background: #101010;
+    --background2: theme(colors.neutral.900);
     --accent: theme(colors.lime.600);
-    --accent-2: theme(colors.lime.700);
-    --error: theme(colors.red.400);
+    --accent2: theme(colors.lime.700);
+    --text: theme(colors.neutral.200);
+    --error: theme(colors.red.500);
+    --success: theme(colors.green.500);
+    --warning: theme(colors.yellow.500);
+    --info: theme(colors.sky.500);
     --scrollbar-thumb: inset 99px 0px 99px rgba(255, 255, 255, 0.2);
     --scrollbar-thumb-hover: inset 99px 0px 99px rgba(255, 255, 255, 0.3);
     --m-scrollbar-thumb: rgba(255, 255, 255, 0.25);
