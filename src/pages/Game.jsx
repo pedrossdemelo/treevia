@@ -8,31 +8,25 @@ import { Question } from "../components";
 function Game() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const token = useSelector(state => state.token);
   const questions = useSelector(state => state.player.questions);
   const answers = useSelector(state => state.player.answers);
+  const category = useSelector(state => state.player.category);
   const [currQuestion, setCurrQuestion] = useState(0);
   const nextQuestion = () => setCurrQuestion(currQuestion + 1);
   const goToFeedback = () => history.push("/feedback");
 
-  const getAnswers = useCallback(
-    async token => {
-      const URL = "https://opentdb.com/api.php?amount=10&token=";
-      const res = await fetch(URL + token);
+  useEffect(() => {
+    (async () => {
+      const URL = `https://opentdb.com/api.php?amount=10&${
+        category !== "any" ? `&category=${category}` : ""
+      }`;
+      const res = await fetch(URL);
       const data = await res.json();
       const { response_code: responseCode, results } = data;
-      if (responseCode !== 0) {
-        const newToken = await getToken();
-        return dispatch(setToken(newToken));
-      }
+      console.log(responseCode);
       return dispatch(setQuestions(results));
-    },
-    [dispatch]
-  );
-
-  useEffect(() => {
-    getAnswers(token);
-  }, [token, getAnswers]);
+    })();
+  }, [category]);
 
   const DIFFICULTY_PALETTE = {
     easy: "bg-lime-500",
@@ -47,7 +41,9 @@ function Game() {
           <div
             className={`h-4 aspect-square rounded-full transition-all duration-500 ${
               DIFFICULTY_PALETTE[q.difficulty]
-            } ${i < answers.length ? "opacity-40" : ""} ${i === currQuestion ? "h-6 -m-1" : ""}`}
+            } ${i < answers.length ? "opacity-40" : ""} ${
+              i === currQuestion ? "h-6 -m-1" : ""
+            }`}
             key={q.question}
           />
         ))}
