@@ -15,10 +15,7 @@ function Login() {
   });
   const { name, email } = state;
 
-  async function handlePlay() {
-    const newToken = await getToken();
-    if (!newToken) return;
-    dispatch(setToken(newToken));
+  async function handleStart() {
     history.push("/game");
     dispatch(setName(name));
     dispatch(setEmail(email));
@@ -64,7 +61,7 @@ function Login() {
         className="px-5 h-16 rounded-lg w-[min(360px,80vw)]"
       />
       <button
-        onClick={handlePlay}
+        onClick={handleStart}
         // email regex
         disabled={
           !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email) ||
@@ -76,7 +73,7 @@ function Login() {
         to-green-500 font-bold text-white text-lg disabled:bg-gray-200/50
         disabled:text-gray-300 disabled:[background-image:none] tracking-wide"
       >
-        <span>Play</span>
+        <span>Start</span>
         <Icons.ArrowRight weight="bold" size="24px" className="ml-2" />
       </button>
     </div>
