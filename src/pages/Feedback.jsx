@@ -20,6 +20,25 @@ export default function Feedback() {
     return acc + 30 + difficultyMap[curr.difficulty] * 30;
   }, 0);
 
+  const answeredQuestions = questions.map((q, i) => {
+    const [answer, timeLeft] = answers[i].split(" | ");
+    const isCorrect = timeLeft !== undefined;
+    const isTimedOut = answer === "Timed out!";
+    const isWrong = !isCorrect && !isTimedOut;
+
+    const category = q.category;
+    const difficulty = q.difficulty;
+
+    return {
+      category,
+      difficulty,
+      isCorrect,
+      isTimedOut,
+      isWrong,
+      timeLeft,
+    };
+  });
+
   const percentScore = Number(((score / maxScore) * 100).toFixed(2));
 
   const percentStyles = useMemo(() => {
@@ -54,20 +73,75 @@ export default function Feedback() {
   }, [percentScore]);
 
   return (
-    <>
-      <h1 className="text-3xl">Overview</h1>{" "}
-      <p className="font-medium">
+    <div className="w-[clamp(320px,90vw,600px)] mx-4">
+      <h1 className="text-[clamp(30px,6vw,60px)] text-center">Overview</h1>{" "}
+      <p className="font-medium text-center">
         You scored <span className={percentStyles.txtColor}>{score}</span> /{" "}
         {maxScore} {percentStyles.emoji}{" "}
         <span className={percentStyles.txtColor}>({percentScore}%)</span>
       </p>
+      <div className="flex flex-col gap-4 items-stretch w-full my-4">
+        {answeredQuestions.map((q, i) => {
+          return <AnswerDetails {...q} key={i} />;
+        })}
+      </div>
       <button
-        className="h-20 px-5 font-xl font-bold text-white rounded-lg bg-gradient-to-r from-lime-500 to-green-500"
+        className="h-20 w-full px-5 font-xl font-bold text-white rounded-lg uppercase bg-gradient-to-r from-lime-500 to-green-500"
         type="button"
         onClick={() => history.push("/game") || dispatch(restartGame())}
       >
         Play again
       </button>
-    </>
+    </div>
+  );
+}
+
+function AnswerDetails({
+  isCorrect,
+  isTimedOut,
+  isWrong,
+  timeLeft,
+  category,
+  difficulty,
+}) {
+  const difficultyColor = useMemo(() => {
+    if (difficulty === "easy") return "text-success";
+    if (difficulty === "medium") return "text-warning";
+    if (difficulty === "hard") return "text-error";
+  }, [difficulty]);
+
+  const statusColor = useMemo(() => {
+    if (isCorrect) return "text-green-700";
+    if (isTimedOut) return "text-purple-700";
+    if (isWrong) return "text-error";
+  }, [isCorrect, isTimedOut, isWrong]);
+
+  const tintBg = useMemo(() => {
+    if (isCorrect) return "bg-green-500/10";
+    if (isTimedOut) return "bg-purple-500/10";
+    if (isWrong) return "bg-red-500/10";
+  }, [isCorrect, isTimedOut, isWrong]);
+
+  const result = isCorrect ? "Correct" : isTimedOut ? "Timed out" : "Wrong";
+
+  return (
+    <div
+      className={`flex flex-col items-stretch rounded-lg justify-between h-20
+      px-5 py-3 font-medium ${tintBg} min-w-[min(340px,90vw)] text-sm`}
+    >
+      <div className="flex justify-between uppercase gap-4 items-center">
+        <span>{category.split(":")[1] ?? category}</span>
+        <span className={`${difficultyColor}`}>{difficulty}</span>
+      </div>
+      <div className={`${statusColor} flex justify-between gap-4 items-center`}>
+        <span>
+          {result}
+          {isCorrect && <span>{` @ ${timeLeft}s left`}</span>}
+        </span>
+
+        {isCorrect && <span>+ {30 + difficultyMap[difficulty] * timeLeft}</span>}
+        {!isCorrect && <span>+ 0</span>}
+      </div>
+    </div>
   );
 }
