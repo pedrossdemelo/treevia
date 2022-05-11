@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 import { restartGame } from "../store/actions";
 import { parseHTML } from "../utils";
 import { AnswerDetails } from "../components";
+import { Redirect } from "react-router-dom";
 
 export const difficultyMap = {
   easy: 1,
@@ -83,7 +84,7 @@ export default function Feedback() {
   return (
     <div className="w-[clamp(320px,90vw,600px)] mx-4">
       <h1 className="text-[clamp(30px,6vw,60px)] text-center">Overview</h1>{" "}
-      {answeredQuestions.length > 0 && (
+      {answeredQuestions.length > 0 ? (
         <>
           <p className="font-medium text-center opacity-80">
             You scored <span className={percentStyles.txtColor}>{score}</span> /{" "}
@@ -96,6 +97,8 @@ export default function Feedback() {
             })}
           </div>
         </>
+      ) : (
+        <Redirect to="/settings" />
       )}
       <details className="text-xs text-center mb-4 cursor-pointer">
         <summary>How scores are calculated</summary>
