@@ -51,14 +51,14 @@ function Login() {
         placeholder="Choose a nickname"
         value={name}
         onChange={handleChange}
-        className="px-5 h-16 rounded-lg w-[min(360px,80vw)]"
+        className="px-5 h-16 rounded-lg bg-bgcolor2 w-[min(360px,80vw)]"
       />
       <input
         name="email"
         placeholder="Email"
         value={email}
         onChange={handleChange}
-        className="px-5 h-16 rounded-lg w-[min(360px,80vw)]"
+        className="px-5 h-16 rounded-lg bg-bgcolor2 w-[min(360px,80vw)]"
       />
       <button
         onClick={handleStart}
@@ -71,6 +71,7 @@ function Login() {
         className="px-5 h-16 flex items-center justify-between rounded-lg
         w-[min(360px,80vw)] text-left bg-gradient-to-r from-lime-500
         to-green-500 font-bold text-white text-lg disabled:bg-gray-200/50
+        dark:disabled:bg-neutral-600/10 dark:disabled:text-neutral-700
         disabled:text-gray-300 disabled:[background-image:none] tracking-wide"
       >
         <span>Start</span>
