@@ -18,7 +18,7 @@ export function Header() {
         <img
           src={`https://www.gravatar.com/avatar/${hashedImageUrl}`}
           alt={name}
-          className="rounded-full h-10 shrink-0"
+          className="rounded-full h-10 shrink-0 cursor-pointer"
           onClick={() => history.push("/settings")}
         />
       </div>
