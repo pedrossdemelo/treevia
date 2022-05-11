@@ -16,7 +16,7 @@
   <h1>Treevia</h1>
 
   <p>
-    <strong>A Trivia game with more than tree thousand verified questions</strong><br>
+    <strong>The trivia game with more than tree thousand verified questions</strong><br>
     <a href="https://treevia.vercel.app">treevia.vercel.app</a>
   </p>
 
