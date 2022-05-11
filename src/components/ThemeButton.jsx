@@ -1,8 +1,8 @@
 import * as Icons from "phosphor-react";
 import { useEffect, useState } from "react";
-import { toggleTheme } from "./utils";
+import { toggleTheme } from "../utils";
 
-export function ThemeButton() {
+export default function ThemeButton() {
   const isDark = document.documentElement.classList.contains("dark");
 
   const [currTheme, setCurrTheme] = useState(isDark ? "dark" : "light");
