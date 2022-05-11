@@ -23,7 +23,6 @@ function Game() {
       const res = await fetch(URL);
       const data = await res.json();
       const { response_code: responseCode, results } = data;
-      console.log(responseCode);
       return dispatch(setQuestions(results));
     })();
   }, [category]);
