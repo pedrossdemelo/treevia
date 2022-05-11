@@ -13,7 +13,7 @@
 <div align="center">
   <img src="docs/assets/icon.png" width="200" height="200">
 
-  <h1>Espresso Wallet</h1>
+  <h1>Treevia</h1>
 
   <p>
     <strong>A Trivia game with more than tree thousand verified questions</strong><br>
