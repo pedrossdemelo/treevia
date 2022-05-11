@@ -16,7 +16,7 @@ export default function App() {
       <main className="max-w-2xl pb-20 mx-auto grow">
         <Switch>
           <Route exact path="/">
-            {loggedIn ? <Redirect to="/game" /> : <Login />}
+            {loggedIn ? <Redirect to="/settings" /> : <Login />}
           </Route>
           <Route path="/game">
             {loggedIn ? <Game /> : <Redirect to="/" />}
