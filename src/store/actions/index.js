@@ -40,3 +40,8 @@ export const setAnswers = (answers) => ({
 export const restartGame = () => ({
   type: 'user/restartGame',
 });
+
+export const setCategory = (category) => ({
+  type: 'user/setCategory',
+  payload: category,
+});

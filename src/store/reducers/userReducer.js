@@ -6,6 +6,7 @@ const initialState = {
   gravatarEmail: localStorage.getItem("gravatarEmail") || "",
   questions: [],
   answers: [],
+  category: "any",
 };
 
 export default function userReducer(state = initialState, action) {
@@ -61,6 +62,11 @@ export default function userReducer(state = initialState, action) {
         questions: [],
         answers: [],
       };
+    case "user/setCategory":
+      return {
+        ...state,
+        category: action.payload,
+      }
     default:
       return state;
   }
