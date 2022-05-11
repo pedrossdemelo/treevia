@@ -62,7 +62,6 @@ function AnswerButton({
       onClick={() => {
         setAnswered(body + (isCorrect ? ` | ${timer}` : ""));
         if (isCorrect) {
-          console.log(timer);
           dispatch(
             updateScore(
               score + (basePontuation + pontuation[difficulty] * timer)
