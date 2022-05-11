@@ -13,15 +13,19 @@ export function Header() {
   return (
     <header className="bg-bgcolor2 m-4 py-2 gap-8 px-4 h-14 rounded-xl flex items-center justify-between overflow-hidden">
       <h1 className="text-xl text-center shrink-0">High score: {highScore}</h1>
-      <div className="flex justify-end gap-4 grow items-center">
-        <h1 className="text-xl shrink line-clamp-1 overflow-ellipsis">{name}</h1>
+      <button
+        onClick={() => history.push("/settings")}
+        className="flex justify-end gap-4 grow items-center"
+      >
+        <h1 className="text-xl shrink line-clamp-1 overflow-ellipsis">
+          {name}
+        </h1>
         <img
           src={`https://www.gravatar.com/avatar/${hashedImageUrl}`}
           alt={name}
           className="rounded-full h-10 shrink-0 cursor-pointer"
-          onClick={() => history.push("/settings")}
         />
-      </div>
+      </button>
     </header>
   );
 }
