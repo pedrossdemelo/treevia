@@ -16,7 +16,7 @@
   <h1>Treevia</h1>
 
   <p>
-    <strong>The trivia game with more than tree thousand verified questions</strong><br>
+    <strong>The trivia game with more than <em>tree</em> thousand verified questions</strong><br>
     <a href="https://treevia.vercel.app">treevia.vercel.app</a>
   </p>
 
@@ -95,7 +95,7 @@ Keep in mind that you need to have a [gravatar](https://gravatar.com) profile pi
 
 ## Known issues
 
-These no known issues at the moment. If you find one, please [open an issue](https://github.com/PedroSSM2000/treevia/issues), it would be greatly appreciated!
+These no known issues at the moment. If you find one, please [open an issue](https://github.com/pedrossdemelo/treevia/issues), it would be greatly appreciated!
 
 ## License
 
@@ -107,15 +107,15 @@ Distributed under the GPL 3.0 License. See `LICENSE` for more information.
 
 <p align="right"><a href="#top">Back to top</a></p>
 
-[contributors-shield]: https://img.shields.io/github/contributors/PedroSSM2000/treevia?style=for-the-badge
-[contributors-url]: https://github.com/PedroSSM2000/treevia/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/PedroSSM2000/treevia?style=for-the-badge
-[forks-url]: https://github.com/PedroSSM2000/treevia/network/members
-[stars-shield]: https://img.shields.io/github/stars/PedroSSM2000/treevia?style=for-the-badge
-[stars-url]: https://github.com/PedroSSM2000/treevia/stargazers
-[issues-shield]: https://img.shields.io/github/issues/PedroSSM2000/treevia?style=for-the-badge
-[issues-url]: https://github.com/PedroSSM2000/treevia/issues
-[license-shield]: https://img.shields.io/github/license/PedroSSM2000/treevia?style=for-the-badge
-[license-url]: https://github.com/PedroSSM2000/treevia/blob/main/LICENSE
+[contributors-shield]: https://img.shields.io/github/contributors/pedrossdemelo/treevia?style=for-the-badge
+[contributors-url]: https://github.com/pedrossdemelo/treevia/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/pedrossdemelo/treevia?style=for-the-badge
+[forks-url]: https://github.com/pedrossdemelo/treevia/network/members
+[stars-shield]: https://img.shields.io/github/stars/pedrossdemelo/treevia?style=for-the-badge
+[stars-url]: https://github.com/pedrossdemelo/treevia/stargazers
+[issues-shield]: https://img.shields.io/github/issues/pedrossdemelo/treevia?style=for-the-badge
+[issues-url]: https://github.com/pedrossdemelo/treevia/issues
+[license-shield]: https://img.shields.io/github/license/pedrossdemelo/treevia?style=for-the-badge
+[license-url]: https://github.com/pedrossdemelo/treevia/blob/main/LICENSE
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/pedrossdemelo/
